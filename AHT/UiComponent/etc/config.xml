@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <uicomponent_section>
+            <my_module>
+                <mytext>1</mytext>
+                <mytext_content>Hello World</mytext_content>
+            </my_module>
+        </uicomponent_section>
+    </default>
+</config>

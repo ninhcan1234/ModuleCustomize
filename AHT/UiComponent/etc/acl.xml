@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="AHT_UiComponent::post_menu" title="Menu Post" sortOrder="10">
+                    <resource id="AHT_UiComponent::post_menu_listing" title="Post Listing" sortOrder="20">
+                        <resource id="AHT_UiComponent::post_create" title="Create" sortOrder="150" />
+                        <resource id="AHT_UiComponent::post_update" title="Update" sortOrder="151" />
+                        <resource id="AHT_UiComponent::post_delete" title="Delete" sortOrder="152" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

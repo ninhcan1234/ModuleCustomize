@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">agents_saleagent_listing.agents_saleagent_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Configuration</label>
+            </button>
+        </buttons>
+        <spinner>agents_saleagent_columns</spinner>
+        <deps>
+            <dep>agents_saleagent_listing.agents_saleagent_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="agents_saleagent_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="cacheRequests" xsi:type="boolean">false</param>
+                <param name="indexField" xsi:type="string">item_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Catalog::customers</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="agents_saleagent_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>item_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <settings>
+                <childDefaults>
+                    <param name="imports" xsi:type="array">
+                        <item name="visible" xsi:type="string">agents_saleagent_listing.agents_saleagent_listing.agents_saleagent_columns:${ $.index }.visible</item>
+                    </param>
+                    <param name="provider" xsi:type="string">agents_saleagent_listing.agents_saleagent_listing.listing_top.listing_filters</param>
+                </childDefaults>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+        </filters>
+        <paging name="listing_paging" component="Magento_Catalog/js/components/attributes-grid-paging">
+            <settings>
+                <selectProvider>agents_saleagent_listing.agents_saleagent_listing.agents_saleagent_columns.ids</selectProvider>
+            </settings>
+        </paging>
+    </listingToolbar>
+    <columns name="agents_saleagent_columns">
+        <column name="entity_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="order_item_sku">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="commission_type">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Commission_type</label>
+            </settings>
+        </column>
+        <column name="commission_value">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Commission value</label>
+            </settings>
+        </column>
+         <column name="order_item_price" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Price">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+         <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product Name</label>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Created</label>
+            </settings>
+        </column>
+         <column name="updated_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Updated</label>
+            </settings>
+        </column>
+         <column name="firstname">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Firstname</label>
+            </settings>
+        </column>
+         <!-- <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+            <settings>
+                <altField>name</altField>
+                <hasPreview>1</hasPreview>
+                <addField>true</addField>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column> -->
+        <actionsColumn name="actions" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Actions">
+            <settings>
+                <indexField>item_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

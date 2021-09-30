@@ -1,0 +1,47 @@
+<?php
+$posts = $block->getAll();
+
+$text = $block->getTextContent('uicomponent_section/my_module/mytext_content');
+echo $text;
+
+?>
+
+
+<?php if (count($posts) > 0): ?>
+    <h2>Hey!!</h2>
+    <table class="abc" border="1">
+        <tr>
+            <th><?= __("ID") ?></th>
+            <th><?= __("NAME") ?></th>
+            <th><?= __("DESCRIPTION") ?></th>
+            <th><?= __("CREATE_AT") ?></th>
+            <th><?= __("UPDATE_AT") ?></th>
+            <th><?= __("ACTION") ?></th>
+        </tr>
+        <?php foreach ($posts as $post): ?>
+            <tr>
+                <td><?= $post->getId() ?></td>
+                <td><?= $post->getName() ?></td>
+                <td><?= $post->getDescription() ?></td>
+                <td><?= $post->getCreated_at() ?></td>
+                <td><?= $post->getUpdated_at() ?></td>
+                <td><a href="<?= $block->toEdit($post->getId())?>">Edit </a><a href="<?= $block->toDelete($post->getId())?>">Delete</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<hr />
+<form method="post" action="<?= $block->toSave() ?>">
+    <fieldset style="margin: 0 auto; width: 50%">
+       
+        <div>
+            <label for="name"><?= __("Name") ?></label>
+                <input type="text" name="name"/>
+        </div>
+        <div>
+            <label for="description"><?= __("DESCRIPTION") ?></label>
+                <input type="text" name="description"/>
+        </div>
+        <input type="submit" style="margin-left:50%; transform:translateX(-50%)" value="<?= __("Add post") ?>" />
+    </fieldset>
+</form>

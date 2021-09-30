@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="customer_sale_agent_entity" resource="default" engine="innodb" comment="Table Sale Agent">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Sale Agent Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" comment="Order ID"/>
+        <column xsi:type="int" name="order_item_id" padding="7" unsigned="false" nullable="false" comment="Order item ID"/>
+        <column xsi:type="varchar" name="order_item_sku" length="255" nullable="false" comment="Order Item SKU"/>
+        <column xsi:type="decimal" name="order_item_price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Order Item Price"/>
+        <column xsi:type="varchar" name="commission_type" length="255" nullable="true" comment="Commission Type ID"/>
+        <column xsi:type="smallint" name="commission_value" padding="5" unsigned="false" nullable="true" comment="Commission Value"/>
+        <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false" on_update="false" comment="Time Create"/>
+        <column xsi:type="datetime" name="updated_at" nullable="true" comment="Time Update"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="sale_agent_commission_type" resource="default" engine="innodb" comment="Table Commission Type">
+        <column xsi:type="int" name="type_id" padding="10" unsigned="false" nullable="false" identity="true" comment="Commission type ID"/>
+        <column xsi:type="varchar" name="type_name" length="255" nullable="false" comment="Commission type name"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="type_id"/>
+        </constraint>
+    </table>
+</schema>

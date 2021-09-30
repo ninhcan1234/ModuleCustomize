@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Preference Class-->
+    <preference for="AHT\SaleAgent\Api\Data\SaleAgentInterface" type="AHT\SaleAgent\Model\SaleAgent" />
+    <preference for="AHT\SaleAgent\Api\SaleAgentRepositoryInterface" type="AHT\SaleAgent\Model\SaleAgentRepository" />
+    <preference for="AHT\SaleAgent\Api\Data\SaleAgentSearchResultsInterface" type="AHT\SaleAgent\Model\SaleAgentSearchResults" />
+
+    <type name="AHT\SaleAgent\Ui\DataProvider\SaleAgent\ListingDataProvider">
+        <plugin name="aht_sale_agent" type="AHT\SaleAgent\Plugin\AddAttributesToUiDataProvider"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="agents_saleagent_listing_data_source" xsi:type="string">AHT\SaleAgent\Model\ResourceModel\SaleAgent\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="AHT\SaleAgent\Model\ResourceModel\SaleAgent\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">customer_sale_agent_entity</argument>
+            <argument name="eventPrefix" xsi:type="string">aht_saleagent_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">aht_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\SaleAgent\Model\ResourceModel\SaleAgent</argument>
+        </arguments>
+    </type>
+
+</config>

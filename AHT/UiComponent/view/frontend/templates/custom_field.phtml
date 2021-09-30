@@ -1,0 +1,70 @@
+<?php
+$phoneCodes = $block->getPhoneCode();
+?>
+
+<fieldset style="border: 1px solid darkgray">
+    <div>
+        <legend>About Country</legend>
+    </div>
+    <div class="field">
+        <label for="country-code">Country</label>
+        <div class="control">
+            <select name="country-code" id="country-code">
+                <?php foreach ($phoneCodes as $key => $val) : ?>
+                    <option value="<?= $val ?>"><?= $block->getCountryName($key) .  " (+" . $val . ")" ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+    </div>
+    <div class="field contact-phone-number required">
+        <label for="contact-phone-number" class="label">Contact Phone Number</label>
+        <div class="control">
+            <input type="text" id="contact-phone-number" name="contact-phone-number__show" />
+            <input type="hidden" id="contact-phone-number__hidden" name="contact-phone-number" />
+        </div>
+    </div>
+
+    <div class="field company-type required">
+        <label for="company-type" class="label">Company type</label>
+        <div class="control">
+            <select name="company-type" id="company-type">
+                <option value="" disabled="disabled">Please Select</option>
+                <option value="1">CBD Manufaturer</option>
+                <option value="2">CBD Brand and Maketing company</option>
+                <option value="3">CBD Extractor</option>
+                <option value="4">Other</option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="field organization-name" id="field-hidden">
+        <label for="organization-name" class="label">Organization name</label>
+        <div class="control">
+            <input type="text" id="organization-name" name="organization-name" />
+        </div>
+    </div>
+</fieldset>
+
+<script>
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            $('#field-hidden').hide();
+
+            $('#contact-phone-number').change(function() {
+                let code = $('#country-code').val();
+                let phone = $(this).val();
+                $('#contact-phone-number__hidden').val()('+' + code + phone);
+            });
+
+            $('#company-type').change(function() {
+                if ($($this).val() == 4) {
+                    alert('ok');
+                    $('#field-hidden').show();
+                } else {
+                    $('#field-hidden').hide();
+                    $('#organization-name').val('');
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,22 @@
+<?php
+$object = $block->getObjectById();
+?>
+
+<h2 style="text-align:center"><?= $block->getTitle() ?></h2>
+<form method="post" action="<?= $block->toSave() ?>" style="margin-top: 100px;">
+    <fieldset style="margin: 0 auto; width: 50%">
+        <div>
+            <label for="post_id"><?= __("ID") ?></label>
+            <input type="text" readonly name="post_id" value="<?= $object->getId(); ?>" style="background-color: gray;">
+        </div>
+        <div>
+            <label for="name"><?= __("PRODUCT'S NAME") ?></label>
+            <input type="text" name="name" value="<?= $object->getName(); ?>" />
+        </div>
+        <div>
+            <label for="description"><?= __("DESCRIPTION") ?></label>
+            <input type="text" name="description" value="<?= $object->getDescription(); ?>" />
+        </div>
+        <input style="margin-left:50%; transform:translateX(-50%)" type="submit" name="btn" value="Save" />
+    </fieldset>
+</form>

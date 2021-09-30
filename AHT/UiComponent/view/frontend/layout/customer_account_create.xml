@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    </head>
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block class="AHT\UiComponent\Block\CountryCode" name="AHT_UiComponent.add_customer_attribute" template="AHT_UiComponent::custom_field.phtml" />
+        </referenceContainer>
+    </body>
+</page>
