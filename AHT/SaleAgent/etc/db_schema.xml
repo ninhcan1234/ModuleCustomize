@@ -8,6 +8,8 @@
         <column xsi:type="decimal" name="order_item_price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Order Item Price"/>
         <column xsi:type="varchar" name="commission_type" length="255" nullable="true" comment="Commission Type ID"/>
         <column xsi:type="smallint" name="commission_value" padding="5" unsigned="false" nullable="true" comment="Commission Value"/>
+        <column xsi:type="decimal" name="total_order_item" scale="4" precision="12" unsigned="true" nullable="false" comment="Total Product"/>
+        <column xsi:type="smallint" name="current_commission_value" padding="5" unsigned="false" nullable="true" comment="Current Commission Value"/>
         <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false" on_update="false" comment="Time Create"/>
         <column xsi:type="datetime" name="updated_at" nullable="true" comment="Time Update"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

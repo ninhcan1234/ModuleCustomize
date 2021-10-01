@@ -81,6 +81,11 @@ class SaleAgent extends \Magento\Framework\Model\AbstractModel implements \AHT\S
         return $this->getData(self::ORDER_ITEM_PRICE);
     }
 
+    public function getTotalItem()
+    {
+        return $this->getData(self::TOTAL_ORDER_ITEM);
+    }
+
     public function getCommissionType()
     {
         return $this->getData(self::COMMISSION_TYPE);
@@ -89,6 +94,11 @@ class SaleAgent extends \Magento\Framework\Model\AbstractModel implements \AHT\S
     public function getCommissionValue()
     {
         return $this->getData(self::COMMISSION_VALUE);
+    }
+
+    public function getCurrentCommissionValue()
+    {
+        return $this->getData(self::CURRENT_COMMISSION_VALUE);
     }
 
     public function getCreatedAt()
@@ -103,7 +113,7 @@ class SaleAgent extends \Magento\Framework\Model\AbstractModel implements \AHT\S
 
     public function setOrderId($orderId)
     {
-        return $this->setData(self::ORDER_ID);
+        return $this->setData(self::ORDER_ID, $orderId);
     }
 
     public function setOrderItemId($orderItemId)
@@ -121,6 +131,11 @@ class SaleAgent extends \Magento\Framework\Model\AbstractModel implements \AHT\S
         return $this->setData(self::ORDER_ITEM_PRICE, $orderItemPrice);
     }
 
+    public function setTotalItem($totalItem)
+    {
+        return $this->setData(self::TOTAL_ORDER_ITEM, $totalItem);
+    }
+
     public function setCommissionType($commissionType)
     {
         return $this->setData(self::COMMISSION_TYPE, $commissionType);
@@ -129,6 +144,11 @@ class SaleAgent extends \Magento\Framework\Model\AbstractModel implements \AHT\S
     public function setCommissionValue($commissionValue)
     {
         return $this->setData(self::COMMISSION_VALUE, $commissionValue);
+    }
+
+    public function setCurrentCommissionValue($currentCommistionValue)
+    {
+        return $this->setData(self::CURRENT_COMMISSION_VALUE, $currentCommistionValue);
     }
 
     public function setCreatedAt($createdAt)

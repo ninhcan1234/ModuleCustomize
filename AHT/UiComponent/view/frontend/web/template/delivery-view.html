@@ -1,15 +1,20 @@
 <!--The 'step_code' value from the .js file should be used-->
 <li id="step_code" data-bind="fadeVisible: isVisible">
-    <div class="step-title" data-bind="i18n: 'Chose Your Option'" data-role="title"></div>
-    <div id="checkout-step-title"
-         class="step-content"
-         data-role="content">
+    <div class="step-title" data-bind="i18n: 'Choose Your Option'" data-role="title"></div>
+    <div id="checkout-step-title" class="step-content" data-role="content">
 
         <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
             <div class="actions-toolbar">
                 <div class="primary">
+
+                    <input type="text" name="abc" />
+                    <input type="text" name="abc" />
+
                     <button data-role="opc-continue" type="submit" class="button action continue primary">
-                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                        <span>
+                            <!-- ko i18n: 'Next'-->
+                            <!-- /ko -->
+                        </span>
                     </button>
                 </div>
             </div>

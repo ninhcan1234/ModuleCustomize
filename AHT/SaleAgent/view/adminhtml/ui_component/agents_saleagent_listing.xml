@@ -28,7 +28,7 @@
         <settings>
             <storageConfig>
                 <param name="cacheRequests" xsi:type="boolean">false</param>
-                <param name="indexField" xsi:type="string">item_id</param>
+                <param name="indexField" xsi:type="string">entity_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
@@ -36,7 +36,7 @@
         <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="agents_saleagent_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
-                <primaryFieldName>item_id</primaryFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -63,39 +63,60 @@
         </paging>
     </listingToolbar>
     <columns name="agents_saleagent_columns">
-        <column name="entity_id">
-            <settings>
-                <filter>textRange</filter>
-                <label translate="true">ID</label>
-                <sorting>asc</sorting>
-            </settings>
-        </column>
-        <column name="order_item_sku">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="resizeConfig" xsi:type="array">
+                    <item name="enabled" xsi:type="boolean">true</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/resize</item>
+                    <item name="rootSelector" xsi:type="string">${ $.columnsProvider }:.admin__data-grid-wrap</item>
+                    <item name="columnsProvider" xsi:type="string">${ $.name }</item>
+                </item>
+            </item>
+        </argument>
+        <column name="sku">
             <settings>
                 <filter>text</filter>
                 <label translate="true">SKU</label>
                 <sorting>asc</sorting>
             </settings>
         </column>
+        <column name="fullname">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SA Name</label>
+            </settings>
+        </column>
         <column name="commission_type">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Commission_type</label>
+                <label translate="true">Commission Type</label>
             </settings>
         </column>
-        <column name="commission_value">
+        <column name="commission_value" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Percent">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Commission value</label>
             </settings>
         </column>
-         <column name="order_item_price" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Price">
+        <column name="order_item_price" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Price">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Price</label>
             </settings>
         </column>
-         <column name="name">
+        <column name="total_order_item">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Total Order Item</label>
+            </settings>
+        </column>
+        <column name="current_commission_value" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Percent">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Current Commission value</label>
+            </settings>
+        </column>
+        <column name="name">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Product Name</label>
@@ -107,19 +128,7 @@
                 <label translate="true">Created</label>
             </settings>
         </column>
-         <column name="updated_at">
-            <settings>
-                <filter>text</filter>
-                <label translate="true">Updated</label>
-            </settings>
-        </column>
-         <column name="firstname">
-            <settings>
-                <filter>text</filter>
-                <label translate="true">Firstname</label>
-            </settings>
-        </column>
-         <!-- <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+        <!-- <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
             <settings>
                 <altField>name</altField>
                 <hasPreview>1</hasPreview>
@@ -130,7 +139,7 @@
         </column> -->
         <actionsColumn name="actions" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Actions">
             <settings>
-                <indexField>item_id</indexField>
+                <indexField>entity_id</indexField>
                 <resizeEnabled>false</resizeEnabled>
                 <resizeDefaultWidth>107</resizeDefaultWidth>
             </settings>

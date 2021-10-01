@@ -9,8 +9,10 @@ interface SaleAgentInterface
     const ORDER_ITEM_ID = 'order_item_id';
     const ORDER_ITEM_SKU = 'order_item_sku';
     const ORDER_ITEM_PRICE = 'order_item_price';
+    const TOTAL_ORDER_ITEM = 'total_order_item';
     const COMMISSION_TYPE = 'commission_type';
     const COMMISSION_VALUE = 'commission_value';
+    const CURRENT_COMMISSION_VALUE = 'current_commission_value';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -50,6 +52,13 @@ interface SaleAgentInterface
     public function getOrderItemPrice();
 
     /**
+     * Return Total order item
+     *
+     * @return float|null
+     */
+    public function getTotalItem();
+
+    /**
      * Get COMMISSION TYPE
      *
      * @return string|null
@@ -59,9 +68,16 @@ interface SaleAgentInterface
     /**
      * Get COMMISSION VALUE
      *
-     * @return string|null
+     * @return int|null
      */
     public function getCommissionValue();
+
+    /**
+     * Get CURRENT COMMISSION VALUE
+     *
+     * @return int|null
+     */
+    public function getCurrentCommissionValue();
 
     /**
      * Gets the created-at timestamp for the order.
@@ -111,6 +127,14 @@ interface SaleAgentInterface
     public function setOrderItemPrice($orderItemPrice);
 
     /**
+     * Sets the quantity ordered for the order item.
+     *
+     * @param float $totalItem
+     * @return $this
+     */
+    public function setTotalItem($totalItem);
+
+    /**
      * Set COMMISSION TYPE
      *
      * @param string $commissionType
@@ -125,6 +149,14 @@ interface SaleAgentInterface
      * @return SaleAgentInterface
      */
     public function setCommissionValue($commissionValue);
+
+    /**
+     * Set CURRENT COMMISSION VALUE
+     *
+     * @param string $currentCommistionValue
+     * @return SaleAgentInterface
+     */
+    public function setCurrentCommissionValue($currentCommistionValue);
 
     /**
      * Sets the created-at timestamp for the order.

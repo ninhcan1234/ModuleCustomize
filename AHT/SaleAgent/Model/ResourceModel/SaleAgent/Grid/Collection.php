@@ -5,6 +5,8 @@ namespace AHT\SaleAgent\Model\ResourceModel\SaleAgent\Grid;
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Search\AggregationInterface;
 use AHT\SaleAgent\Model\ResourceModel\SaleAgent\Collection as SaleAgentCollection;
+use Magento\Eav\Model\ResourceModel\Entity\Attribute;
+
 
 /**
  * Class Collection
@@ -17,6 +19,7 @@ class Collection extends SaleAgentCollection implements SearchResultInterface
      * @return $this
      */
    public function __construct(
+        Attribute $eavAttribute,
         \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
@@ -31,6 +34,7 @@ class Collection extends SaleAgentCollection implements SearchResultInterface
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
     ) {
         parent::__construct(
+            $eavAttribute,
             $entityFactory,
             $logger,
             $fetchStrategy,
@@ -125,51 +129,4 @@ class Collection extends SaleAgentCollection implements SearchResultInterface
     }
    
 
-    // private function getIdProductEavEntity($code)
-    // {
-    //     return $this->eavAttribute->getIdByCode(Product::ENTITY, $code);
-    // }
-
-    //  /**
-    //  * Override _initSelect to add custom columns
-    //  *
-    //  * @return void
-    //  */
-    // protected function _initSelect()
-    // {
-    //     $connection = $this->_resource->getConnection();
-    //     $saleOrder = $connection->getTableName('sales_order');
-    //     $saleOrderItem = $connection->getTableName('sales_order_item');
-    //     $catalogDecimal = $connection->getTableName('catalog_product_entity_decimal');
-
-    //     parent::_initSelect();
-    //     $saleAgentCollection = $this->saleAgentCollectionFactory->create();
-    //     $saleAgentCollection->getSelect()
-    //         ->joinInner(
-    //             ['so' => $this->getTable('sales_order')],
-    //             "main_table.order_id = so.increment_id"
-    //         )
-    //         ->joinLeft(
-    //             ['soi' => $this->getTable('sales_order_item')],
-    //             "main_table.order_item_sku = soi.sku and main_table.order_item_id = soi.product_id"
-    //         )
-    //         ->joinLeft(
-    //             ['cped' => 'catalog_product_entity_decimal'],
-    //             "main_table.commission_value = cped.value 
-    //             and soi.product_id = cped.entity_id 
-    //             and cped.attribute_id = '{$this->getIdProductEavEntity('commission_value')}'"
-    //         );
-
-    //     return $saleAgentCollection;
-    // }
-
-    //SELECT * FROM `customer_sale_agent_entity` AS `sa` 
-    //LEFT JOIN sales_order as `so` 
-        //  on sa.order_id =   `so`.increment_id 
-    //LEFT JOIN sales_order_item as `soi` 
-        //  on sa.order_item_sku =  `soi`.sku and sa.order_item_id = soi.product_id 
-    //LEFT JOIN catalog_product_entity_decimal as `cped` 
-        //  on sa.commission_value      =         `cped`.value AND soi.product_id = cped.entity_id 
-    //LEFT JOIN eav_entity_attribute as 'eea` 
-        //  on  cped.attribute_id =     `eea`.attribute_id; 
 }

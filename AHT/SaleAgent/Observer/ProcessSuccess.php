@@ -18,7 +18,7 @@ class ProcessSuccess implements \Magento\Framework\Event\ObserverInterface
         $this->time = $date;
     }
 
-    protected function addDataSaleAgent($orderId, $orderItemId, $sku, $price, $commissionType, $commissionValue)
+    protected function addDataSaleAgent($orderId, $orderItemId, $sku, $price, $qtyOrder, $commissionType, $commissionValue, $currentCommissionValue)
     {
         /** @var \AHT\SaleAgent\Model\SaleAgent $saleAgent */
         $saleAgent = $this->saleAgentFactory->create();
@@ -26,9 +26,11 @@ class ProcessSuccess implements \Magento\Framework\Event\ObserverInterface
         $saleAgent->setOrderItemId($orderItemId);
         $saleAgent->setOrderItemSku($sku);
         $saleAgent->setOrderItemPrice($price);
+        $saleAgent->setTotalItem($qtyOrder);
         $saleAgent->setCommissionType($commissionType);
         $saleAgent->setCommissionValue($commissionValue);
-        $saleAgent->setCreatedAt($this->time);
+        $saleAgent->setCurrentCommissionValue($currentCommissionValue);
+        $saleAgent->setCreatedAt(date('d-m-Y H:i:s'));
         $this->saleAgentRepository->save($saleAgent);
     }
 
@@ -39,13 +41,17 @@ class ProcessSuccess implements \Magento\Framework\Event\ObserverInterface
         $orderId = $order->getIncrementId();
 
         foreach ($order->getAllItems() as $item) {
-            $productId = $item->getProductId();  //Product <=> Item
-            $productSku = $item->getSku();
-            $price = $item->getPrice();
-            $commissionType = $item->getProduct()->getCommissionType();
-            $commissionValue = $item->getProduct()->getCommissionValue();
+            $existAgent = $item->getProduct()->getSaleAgentId();
+            if ($existAgent) {
+                $productId = $item->getProductId();
+                $productSku = $item->getSku();
+                $qtyOrder = $item->getQtyOrdered();
+                $price = $qtyOrder == 1 ? $item->getPrice() : $item->getPrice()*$qtyOrder;
+                $commissionType = $item->getProduct()->getCommissionType();
+                $commissionValue = $item->getProduct()->getCommissionValue();
+                $currentCommissionValue = ($commissionType == 'percent')? $commissionValue : $commissionValue*$qtyOrder;
+                $this->addDataSaleAgent($orderId, $productId, $productSku, $price, $qtyOrder, $commissionType, $commissionValue, $currentCommissionValue);
+            }
         }
-        $this->addDataSaleAgent($orderId, $productId, $productSku, $price, $commissionType, $commissionValue);
     }
-
 }

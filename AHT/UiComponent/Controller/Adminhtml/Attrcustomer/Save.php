@@ -46,9 +46,9 @@ class Save extends Action
     {
         $data = $this->getRequest()->getParams();
         $attributeCode = $data['attribute_code'];
-
-        if ($data['input'] == 'boolean') {
-            $source = \Magento\Eav\Model\Entity\Attribute\Source\Boolean::class;
+        $source = '';
+        if ($data['frontend_input'] == 'boolean') {
+            $source = 'Magento\Eav\Model\Entity\Attribute\Source\Boolean';
         }
   
         if ($data) {
@@ -58,15 +58,14 @@ class Save extends Action
                 $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
                 $eavSetup->addAttribute(Customer::ENTITY, $attributeCode, [
-                    'label' => $data['label'],
-                    'type' => $data['type'],
-                    'input' => $data['input'],
-                    'required' => $data['required'],
-                    'visible' => $data['visible'],
-                    'system' => $data['system'],
+                    'label' => $data['frontend_label'],
+                    'type' => $data['backend_type'],
+                    'input' => $data['frontend_input'],
+                    'required' => $data['is_required'],
+                    'visible' => $data['is_visible'],
+                    'system' => $data['is_system'],
                     'sort_order' => $data['sort_order'],
-                    'position' => $data['position'],
-                    'source' => 'AHT\UiComponent\Model\Config\Source\IsAgent'
+                    'source' => $source
                 ]);
 
                 $customerAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, $attributeCode);
@@ -77,7 +76,7 @@ class Save extends Action
                 $this->customerResource->save($customerAttribute);
                 $this->moduleDataSetup->getConnection()->endSetup();
             } catch (Exception $e) {
-                $this->messageManager->addSuccessMessage(__('Added Attribute') . $data['label'] . __(' Susccessfully!'));
+                $this->messageManager->addSuccessMessage(__('Added Attribute') . $data['frontend_label'] . __(' Susccessfully!'));
             }
         }
         $resulrRedirect = $this->resultRedirectFactory->create();

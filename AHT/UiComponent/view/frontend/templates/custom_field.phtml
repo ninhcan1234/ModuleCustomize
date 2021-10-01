@@ -1,4 +1,5 @@
 <?php
+/** @var \AHT\UiComponent\Block\CountryCode $block */
 $phoneCodes = $block->getPhoneCode();
 ?>
 
@@ -16,18 +17,18 @@ $phoneCodes = $block->getPhoneCode();
             </select>
         </div>
     </div>
-    <div class="field contact-phone-number required">
-        <label for="contact-phone-number" class="label">Contact Phone Number</label>
+    <div class="field contact_phone_number required">
+        <label for="contact_phone_number" class="label">Contact Phone Number</label>
         <div class="control">
-            <input type="text" id="contact-phone-number" name="contact-phone-number__show" />
-            <input type="hidden" id="contact-phone-number__hidden" name="contact-phone-number" />
+            <input type="text" id="contact_phone_number" name="contact_phone_number" value='' />
+            <!-- <input type="hidden" id="contact_phone_number__hidden" name="contact_phone_number" /> -->
         </div>
     </div>
 
     <div class="field company-type required">
         <label for="company-type" class="label">Company type</label>
         <div class="control">
-            <select name="company-type" id="company-type">
+            <select name="company-type" id="company-type" >
                 <option value="" disabled="disabled">Please Select</option>
                 <option value="1">CBD Manufaturer</option>
                 <option value="2">CBD Brand and Maketing company</option>
@@ -50,15 +51,15 @@ $phoneCodes = $block->getPhoneCode();
         $(document).ready(function() {
             $('#field-hidden').hide();
 
-            $('#contact-phone-number').change(function() {
+            $('#contact_phone_number').change(function() {
                 let code = $('#country-code').val();
                 let phone = $(this).val();
-                $('#contact-phone-number__hidden').val()('+' + code + phone);
+                $('#contact_phone_number__hidden').val()('+' + code + phone);
             });
 
             $('#company-type').change(function() {
-                if ($($this).val() == 4) {
-                    alert('ok');
+                if ($(this).val() == 4) {
+                    alert('enter your information!');
                     $('#field-hidden').show();
                 } else {
                     $('#field-hidden').hide();

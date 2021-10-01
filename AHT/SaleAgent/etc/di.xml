@@ -5,6 +5,9 @@
     <preference for="AHT\SaleAgent\Api\SaleAgentRepositoryInterface" type="AHT\SaleAgent\Model\SaleAgentRepository" />
     <preference for="AHT\SaleAgent\Api\Data\SaleAgentSearchResultsInterface" type="AHT\SaleAgent\Model\SaleAgentSearchResults" />
 
+    <type name="Magento\Customer\Block\Account\Dashboard\Info">
+        <plugin name="aht_sale_agent_afterGetName" type="AHT\SaleAgent\Plugin\AddBeforeUserName"/>
+    </type>
     <type name="AHT\SaleAgent\Ui\DataProvider\SaleAgent\ListingDataProvider">
         <plugin name="aht_sale_agent" type="AHT\SaleAgent\Plugin\AddAttributesToUiDataProvider"/>
     </type>
@@ -18,10 +21,12 @@
     <type name="AHT\SaleAgent\Model\ResourceModel\SaleAgent\Grid\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">customer_sale_agent_entity</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\SaleAgent\Model\ResourceModel\SaleAgent</argument>
             <argument name="eventPrefix" xsi:type="string">aht_saleagent_grid_collection</argument>
             <argument name="eventObject" xsi:type="string">aht_grid_collection</argument>
-            <argument name="resourceModel" xsi:type="string">AHT\SaleAgent\Model\ResourceModel\SaleAgent</argument>
         </arguments>
     </type>
+
+
 
 </config>

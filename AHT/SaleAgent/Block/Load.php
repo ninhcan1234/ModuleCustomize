@@ -28,12 +28,6 @@ class Load extends \Magento\Framework\View\Element\Template
 
     public function join()
     {
-        // $connection = $this->_resource->getConnection();
-        /**
-         * $saleOrder name of order table
-         */
-        // $saleOrder = $connection->getTableName('sales_order');
-
         $saleAgentCollection = $this->saleAgentCollectionFactory->create();
         $saleAgentCollection->getSelect()
         ->joinLeft(
@@ -42,6 +36,9 @@ class Load extends \Magento\Framework\View\Element\Template
         );
 
         return $saleAgentCollection;
+    }
+    public function test(){
+        return 'abc';
     }
 
     public function getIdProductEavEntity($attribute_code)

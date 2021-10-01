@@ -91,7 +91,7 @@
                 <label translate="true">Required</label>
             </settings>
         </column>
-        <column name="is_user_defined" component="Magento_Ui/js/grid/columns/select">
+        <column name="is_system" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>
                 <filter>select</filter>

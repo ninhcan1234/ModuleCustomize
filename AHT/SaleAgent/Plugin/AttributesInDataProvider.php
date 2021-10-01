@@ -60,11 +60,6 @@ class AttributesInDataProvider
             $column = 'row_id';
         }
 
-        // $connection = $this->_resource->getConnection();
-        // $saleOrder = $connection->('sales_order');
-        // $saleOrderItem = $connection->getTableName('sales_order_item');
-        // $catalogDecimal = $connection->getTableName('catalog_product_entity_decimal');
-
         $saleAgentCollection = $this->saleAgentCollectionFactory->create();
         $saleAgentCollection->getSelect()
             ->joinInner(
@@ -84,6 +79,7 @@ class AttributesInDataProvider
 
         return $saleAgentCollection;
     }
+    
     private function getIdProductEavEntity($code)
     {
         return $this->eavAttribute->getIdByCode(Product::ENTITY, $code);
