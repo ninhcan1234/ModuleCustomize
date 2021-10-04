@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="AHT_UiComponent::attribute_customer" title="Attribute" parent="Magento_Customer::customer" module="AHT_UiComponent" sortOrder="60" action="uic/attrcustomer/index" resource="AHT_UiComponent::post_menu"/>
+        <add id="AHT_UiComponent::attribute_customer" title="Attribute" parent="Magento_Customer::customer" module="AHT_UiComponent" sortOrder="60" action="uic/attrcustomer/index" dependsOnConfig="ui_ss/ui_gr/ui_yn" resource="AHT_UiComponent::ui_manager"/>
     </menu>
 </config>

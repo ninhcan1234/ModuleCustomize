@@ -197,19 +197,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
                     'required-entry' => true,
                 ];
             }
-            // $meta['attribute_options_select_container']['children']['attribute_options_select']['children']
-            // ['record']['children']['value_option_' . $storeId] = $this->arrayManager->set(
-            //     'arguments/data/config',
-            //     [],
-            //     $storeLabelConfiguration
-            // );
-
-            // $meta['attribute_options_multiselect_container']['children']['attribute_options_multiselect']['children']
-            // ['record']['children']['value_option_' . $storeId] = $this->arrayManager->set(
-            //     'arguments/data/config',
-            //     [],
-            //     $storeLabelConfiguration
-            // );
+            
             ++$sortOrder;
         }
 

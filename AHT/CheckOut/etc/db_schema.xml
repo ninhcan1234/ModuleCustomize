@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="aht_delivery_step" resource="default" engine="innodb" comment="Table Delivery">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="false" nullable="false" identity="true" comment=""/>
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="false" nullable="false" default="0" comment="Quote ID"/>
+        <column xsi:type="datetime" name="delivery_date" nullable="false" comment="Delivery Date"/>
+        <column xsi:type="varchar" name="delivery_comment" length="255" nullable="true" default="0" comment="Delivery Comment"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

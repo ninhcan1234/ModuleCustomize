@@ -4,12 +4,15 @@
     <preference for="AHT\SaleAgent\Api\Data\SaleAgentInterface" type="AHT\SaleAgent\Model\SaleAgent" />
     <preference for="AHT\SaleAgent\Api\SaleAgentRepositoryInterface" type="AHT\SaleAgent\Model\SaleAgentRepository" />
     <preference for="AHT\SaleAgent\Api\Data\SaleAgentSearchResultsInterface" type="AHT\SaleAgent\Model\SaleAgentSearchResults" />
-
+    
     <type name="Magento\Customer\Block\Account\Dashboard\Info">
         <plugin name="aht_sale_agent_afterGetName" type="AHT\SaleAgent\Plugin\AddBeforeUserName"/>
     </type>
     <type name="AHT\SaleAgent\Ui\DataProvider\SaleAgent\ListingDataProvider">
         <plugin name="aht_sale_agent" type="AHT\SaleAgent\Plugin\AddAttributesToUiDataProvider"/>
+    </type>
+    <type name="Magento\Eav\Model\Entity\Collection\AbstractCollection">
+        <plugin name="find_duplicate_entry" type="AHT\SaleAgent\Plugin\FindDuplicateEntry"/>
     </type>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>

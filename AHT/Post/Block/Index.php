@@ -23,16 +23,6 @@ class Index extends \Magento\Framework\View\Element\Template
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
-    public function getItemsJson(){
-        $results = [];
-        foreach($this->getAll() as $post){
-            $results[$post->getIdentifier()] = [
-                'name' => $post->getName(),
-                'description' => $post->getDescription(),
-            ];
-        }
-    }
-
     public function getAll(){
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $postSearchResults = $this->postRepository->getList($searchCriteria);

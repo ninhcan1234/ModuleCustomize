@@ -1,0 +1,15 @@
+<?php
+
+/** @var \AHT\CheckOut\Block\Adminhtml\Order\Delivery $block */
+$delivery = $block->getDelivery();
+?>
+<div class="template">
+    <div class="admin__page-section-item-title">
+        <span class="title">Delivery Information</span>
+        <div class="actions"><span><?= /* @noEscape*/ $block->getEditLink() ?></span></div>
+    </div>
+    <div class="delivery-content">
+        <p><span><label>Date: </label></span><?= $delivery->getDeliveryDate(); ?></p>
+        <p><span><label>Date: </label></span><?= $delivery->getDeliveryComment(); ?></p>
+    </div>
+</div>

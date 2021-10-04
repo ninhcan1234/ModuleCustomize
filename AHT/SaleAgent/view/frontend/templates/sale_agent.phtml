@@ -1,14 +1,45 @@
 <?php
+
 /** @var \AHT\SaleAgent\Block\SaleAgent\Account $block */
+
+$collections = $block->filterProductHasSaleAgent();
+
 ?>
 
-<div class="template">
-    <h2>ABC</h2>
-    <h1>
-        <?php 
-            echo $block->getIdCustomerBySession();
-            echo "<pre>";
-            var_dump($block->filterProduct()->getData()->getData()); 
-        ?>
-    </h1>
-</div>
+<?php if (count($collections) > 0) : ?>
+    <h2></h2>
+    <hr />
+    <table class="abc" style='border: 1px solid gray'>
+        <tr>
+            <th><?= __("Product") ?></th>
+            <th><?= __("Total") ?></th>
+            <th><?= __("Price") ?></th>
+            <th><?= __("Type") ?></th>
+            <th><?= __("Value") ?></th>
+            <th><?= __("Current value") ?></th>
+            <th><?= __("Url") ?></th>
+            <th><?= __("Action") ?></th>
+        </tr>
+        <?php foreach ($collections as $collection) : ?>
+            <tr>
+                <td><?= $collection->getName(); ?></td>
+                <td><?= number_format($collection->getTotal(), false); ?></td>
+                <td><?= $block->formatPrice($collection->getTotalPrice()); ?></td>
+                <td><?= $collection->getCommissionType(); ?></td>
+                <td><?= ($collection->getCommissionType() == 'percent' ?  number_format($collection->getCommissionValue(), false) . '%' : $block->formatPrice($collection->getCommissionValue())); ?></td>
+                <td><?= ($collection->getCommissionType() == 'percent' ?  $collection->getCurrentCommissionValue() . '%' : $block->formatPrice($collection->getCurrentCommissionValue()*$collection->getTotal())); ?></td>
+                <td><a href="<?= $collection->getProductUrl(); ?>">Link</a></td>
+                <td><a class="remove" href="#">Delete</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else : ?>
+    <div class="message info empty"><span>You have no commission.</span></div>
+<?php endif; ?>
+<hr />
+
+
+<?php $id = $block->getIdCustomerBySession(); ?>
+<script>
+    
+</script>

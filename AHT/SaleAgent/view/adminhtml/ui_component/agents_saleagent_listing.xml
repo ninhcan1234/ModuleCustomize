@@ -98,13 +98,13 @@
                 <label translate="true">Commission value</label>
             </settings>
         </column>
-        <column name="order_item_price" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Price">
+        <column name="total_price" class="AHT\SaleAgent\Ui\Component\SaleAgent\Listing\Column\Price">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Price</label>
             </settings>
         </column>
-        <column name="total_order_item">
+        <column name="total">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Total Order Item</label>

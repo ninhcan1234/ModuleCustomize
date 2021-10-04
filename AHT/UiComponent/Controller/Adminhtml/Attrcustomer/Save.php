@@ -47,10 +47,17 @@ class Save extends Action
         $data = $this->getRequest()->getParams();
         $attributeCode = $data['attribute_code'];
         $source = '';
-        if ($data['frontend_input'] == 'boolean') {
+        // echo "<pre>";
+        // var_dump($data);
+        // die;
+        if ($data['frontend_input'] == 'boolean' || $data['frontend_input'] == 'select') {
             $source = 'Magento\Eav\Model\Entity\Attribute\Source\Boolean';
         }
-  
+
+        if($data['position'] < 200){
+            $data['position'] = 300;
+        }
+        
         if ($data) {
             try {
                 $this->moduleDataSetup->getConnection()->startSetup();
@@ -64,22 +71,19 @@ class Save extends Action
                     'required' => $data['is_required'],
                     'visible' => $data['is_visible'],
                     'system' => $data['is_system'],
-                    'sort_order' => $data['sort_order'],
+                    'position' => $data['position'],
                     'source' => $source
                 ]);
 
                 $customerAttribute = $this->eavConfig->getAttribute(Customer::ENTITY, $attributeCode);
-                foreach ($data['used_in_forms'] as $used ) {
-                    $customerAttribute->setData(['used_in_forms', $used]);
-                }
-
+                $customerAttribute->setData(['used_in_forms', array_values($data['used_in_forms'])]);
                 $this->customerResource->save($customerAttribute);
                 $this->moduleDataSetup->getConnection()->endSetup();
-            } catch (Exception $e) {
-                $this->messageManager->addSuccessMessage(__('Added Attribute') . $data['frontend_label'] . __(' Susccessfully!'));
+            }catch (\Exception $e) {
+                $this->messageManager->addSuccessMessage(__('Added attribute' ) . $data['frontend_label'] . __(' susccessfully!'));
             }
         }
-        $resulrRedirect = $this->resultRedirectFactory->create();
-        return $resulrRedirect->setPath('*/*/');
+        $resultRedirect = $this->resultRedirectFactory->create();
+        return $resultRedirect->setPath('*/*/');
     }
 }

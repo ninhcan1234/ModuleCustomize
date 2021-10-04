@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="AHT\CheckOut\Api\Data\DeliveryInterface" type="AHT\CheckOut\Model\Delivery" />
+    <preference for="AHT\CheckOut\Api\DeliveryRepositoryInterface" type="AHT\CheckOut\Model\DeliveryRepository" />
+    <preference for="AHT\CheckOut\Api\Data\DeliverySearchResultsInterface" type="AHT\CheckOut\Model\DeliverySearchResults" />
+</config>

@@ -1,0 +1,20 @@
+<?php
+/** @var \AHT\CheckOut\Block\Adminhtml\Order\DeliveryForm $block */
+    $delivery = $block->getDelivery();
+?>
+
+<div class="message message-notice">
+    <div class="message-inner">
+        <div class="message-content"><?= $block->escapeHtml(__('Changing delivery won\'t change info about fee')) ?></div>
+    </div>
+</div>
+
+<fieldset>
+    <legend>
+        <span><?= $block->escapeHtml($block->getTitle()) ?></span>
+    </legend>
+    <br/>
+    <div>
+        <?= $block->getForm()->toHtml() ?>
+    </div>
+</fieldset>

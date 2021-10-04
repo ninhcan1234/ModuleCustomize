@@ -18,8 +18,16 @@ class ProcessSuccess implements \Magento\Framework\Event\ObserverInterface
         $this->time = $date;
     }
 
-    protected function addDataSaleAgent($orderId, $orderItemId, $sku, $price, $qtyOrder, $commissionType, $commissionValue, $currentCommissionValue)
-    {
+    protected function addDataSaleAgent(
+        $orderId,
+        $orderItemId,
+        $sku,
+        $price,
+        $qtyOrder,
+        $commissionType,
+        $commissionValue,
+        $currentCommissionValue
+    ) {
         /** @var \AHT\SaleAgent\Model\SaleAgent $saleAgent */
         $saleAgent = $this->saleAgentFactory->create();
         $saleAgent->setOrderId($orderId);
@@ -46,11 +54,20 @@ class ProcessSuccess implements \Magento\Framework\Event\ObserverInterface
                 $productId = $item->getProductId();
                 $productSku = $item->getSku();
                 $qtyOrder = $item->getQtyOrdered();
-                $price = $qtyOrder == 1 ? $item->getPrice() : $item->getPrice()*$qtyOrder;
+                $price = $qtyOrder == 1 ? $item->getPrice() : $item->getPrice() * $qtyOrder;
                 $commissionType = $item->getProduct()->getCommissionType();
                 $commissionValue = $item->getProduct()->getCommissionValue();
-                $currentCommissionValue = ($commissionType == 'percent')? $commissionValue : $commissionValue*$qtyOrder;
-                $this->addDataSaleAgent($orderId, $productId, $productSku, $price, $qtyOrder, $commissionType, $commissionValue, $currentCommissionValue);
+                $currentCommissionValue = ($commissionType == 'percent') ? $commissionValue : ($commissionValue * $qtyOrder);
+                $this->addDataSaleAgent(
+                    $orderId,
+                    $productId,
+                    $productSku,
+                    $price,
+                    $qtyOrder,
+                    $commissionType,
+                    $commissionValue,
+                    $currentCommissionValue
+                );
             }
         }
     }

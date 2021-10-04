@@ -62,7 +62,18 @@ class Collection extends AbstractCollection
         )
         ->where(
             "cpei.attribute_id = {$this->getIdProductEavEntity('sale_agent_id')}"
+        )
+        ->group('order_item_id','total_order_item')
+        ->columns(['total' => new \Zend_Db_Expr('SUM(total_order_item)')])
+        ->columns(['total_price' => new \Zend_Db_Expr('SUM(order_item_price)')]);
+        
+        $this->getPageSize(5);
+        $this->getConnection()->addIndex(
+            'customer_sale_agent_entity', //table name
+                'sku',    // index name
+                ['order_item_sku'],   // filed or column name 
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT //type of index
         );
-         
+        return $this;
     }
 }

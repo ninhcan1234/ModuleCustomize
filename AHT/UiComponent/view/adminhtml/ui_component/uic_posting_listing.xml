@@ -31,7 +31,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>AHT_UiComponent::post_menu</aclResource>
+        <aclResource>AHT_UiComponent::ui_manager</aclResource>
         <dataProvider class="Magento\Cms\Ui\Component\DataProvider" name="uic_posting_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>

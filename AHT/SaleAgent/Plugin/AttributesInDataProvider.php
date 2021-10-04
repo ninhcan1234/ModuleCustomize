@@ -22,11 +22,11 @@ class AttributesInDataProvider
     protected $eavAttribute;
 
     /**
-     * Constructor
-     *
-     * @param \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
-     * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
-     */
+    * Constructor
+    *
+    * @param \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
+    * @param \Magento\Framework\App\ProductMetadataInterface $productMetadata
+    */
     public function __construct(
         Attribute $eavAttribute,
         AttributeRepositoryInterface $attributeRepository,
