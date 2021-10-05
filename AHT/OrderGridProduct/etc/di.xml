@@ -3,7 +3,7 @@
  <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="product_order_listing_data_source" xsi:type="string">AHT\OrderGridProduct\Ui\DataProvider\Product\OrderDataProvider</item>
+                <item name="order_listing_data_source" xsi:type="string">AHT\OrderGridProduct\Ui\DataProvider\Product\Order\DataProvider</item>
             </argument>
         </arguments>
     </type>

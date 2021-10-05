@@ -1,5 +1,5 @@
 <?php
-namespace AHT\OrderGridProduct\Ui\DataProvider\Product;
+namespace AHT\OrderGridProduct\Ui\DataProvider\Product\Order;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
@@ -9,7 +9,7 @@ use Magento\Sales\Model\Review;
 use Magento\Sales\Model\Order\Item;
 use Magento\Catalog\Model\ProductFactory;
 
-class OrderDataProvider extends AbstractDataProvider    
+class DataProvider extends AbstractDataProvider    
 {
     /**
      * @var CollectionFactory

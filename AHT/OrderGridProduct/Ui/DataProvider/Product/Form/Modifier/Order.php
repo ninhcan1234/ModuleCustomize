@@ -57,16 +57,16 @@ class Order extends AbstractModifier
 
         $meta[static::GROUP_REVIEW] = [
             'children' => [
-                'product_order_listing' => [
+                'order_listing' => [
                     'arguments' => [
                         'data' => [
                             'config' => [
                                 'autoRender' => true,
                                 'componentType' => 'insertListing',
-                                'dataScope' => 'product_order_listing',
-                                'externalProvider' => 'product_order_listing.product_order_listing_data_source',
-                                'selectionsProvider' => 'product_order_listing.product_order_listing.product_columns.ids',
-                                'ns' => 'product_order_listing',
+                                'dataScope' => 'order_listing',
+                                'externalProvider' => 'order_listing.order_listing_data_source',
+                                'selectionsProvider' => 'order_listing.order_listing.product_columns.ids',
+                                'ns' => 'order_listing',
                                 'render_url' => $this->urlBuilder->getUrl('mui/index/render'),
                                 'realTimeLink' => false,
                                 'behaviourType' => 'simple',
