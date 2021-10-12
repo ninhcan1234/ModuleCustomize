@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mageplaza\GiftCard\Api\Data\GiftCardInterface" type="Mageplaza\GiftCard\Model\GiftCard" />
+    <preference for="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" type="Mageplaza\GiftCard\Model\GiftCardRepository" />
+    <preference for="Mageplaza\GiftCard\Api\Data\GiftCardSearchResultsInterface" type="Mageplaza\GiftCard\Model\GiftCardSearchResults" />
+
+    <virtualType name="GiftCardGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Mageplaza\GiftCard\Model\ResourceModel\GiftCard\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">GiftCardListingFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GiftCardListingFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mage_giftcode_listing_data_source" xsi:type="string">Mageplaza\GiftCard\Model\ResourceModel\GiftCard\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mageplaza\GiftCard\Model\ResourceModel\GiftCard\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">giftcard_code</argument>
+            <argument name="resourceModel" xsi:type="string">Mageplaza\GiftCard\Model\ResourceModel\GiftCard</argument>
+        </arguments>
+    </type>
+     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Mageplaza\GiftCard\Api\Data\GiftCardInterface" xsi:type="string">Mageplaza\GiftCard\Api\GiftCardRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

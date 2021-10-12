@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Mageplaza gift card -->
+    <route url="/V1/gift/search" method="GET">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/gift/search/:id" method="GET">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/gift" method="POST">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/gift" method="PUT">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+     <route url="/V1/gift/delete" method="POST">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/gift/delete/:id" method="DELETE">
+        <service class="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

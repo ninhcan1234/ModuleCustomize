@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <head>
+    <title>
+        ABC
+    </title>
+   </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Mageplaza\GiftCard\Block\Base" name="Mageplaza_GiftCard_Name" template="Mageplaza_GiftCard::index.phtml" />
+        </referenceContainer>
+    </body>
+</page>

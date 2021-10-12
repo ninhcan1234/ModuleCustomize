@@ -1,0 +1,56 @@
+<?php
+/** @var \Mageplaza\GiftCard\Block\Base $block */
+$gifts = $block->getAll();
+$random = $block->getRandomNumber(1, 12);
+$randomC = strtoupper($block->getRandomChar(12));
+
+echo $random. "<br/>";
+echo $randomC;
+die;
+
+?>
+
+<?php if (count($gifts) > 0): ?>
+    <h2>Test!!</h2>
+    <table class="abc" border="1">
+        <tr>
+            <th><?= __("ID") ?></th>
+            <th><?= __("Code") ?></th>
+            <th><?= __("Balance") ?></th>
+            <th><?= __("Amount Used") ?></th>
+            <th><?= __("Create Fronm") ?></th>
+            <th><?= __("Create At") ?></th>
+            <th><?= __("ACTION") ?></th>
+        </tr>
+        <?php foreach ($gifts as $gift): ?>
+            <tr>
+                <td><?= $gift->getId() ?></td>
+                <td><?= $gift->getCode() ?></td>
+                <td><?= $gift->getBalance() ?></td>
+                <td><?= $gift->getAmountUsed() ?></td>
+                <td><?= $gift->getCreateFrom() ?></td>
+                <td><?= $gift->getCreateAt() ?></td>
+                <td><a href="<?= $block->toEdit($gift->getId())?>">Edit </a><a href="<?= $block->toDelete($gift->getId())?>">Delete</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<hr />
+<form method="post" action="<?= $block->toSave() ?>">
+    <fieldset style="margin: 0 auto; width: 50%">
+       
+        <div>
+            <label for="code"><?= __("Code") ?></label>
+                <input type="text" name="code"/>
+        </div>
+        <div>
+            <label for="balance"><?= __("Balance") ?></label>
+                <input type="text" name="balance"/>
+        </div>
+        <div>
+            <label for="amount_used"><?= __("Amount") ?></label>
+                <input type="text" name="amount_used"/>
+        </div>
+        <input type="submit" style="margin-left:50%; transform:translateX(-50%)" value="<?= __("Add Gift") ?>" />
+    </fieldset>
+</form>

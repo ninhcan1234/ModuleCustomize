@@ -1,0 +1,24 @@
+<?php
+/** @var \Mageplaza\GiftCard\Block\Edit $block */
+$gift = $block->getGiftCard();
+
+?>
+
+<h2 style="text-align:center"><?= $block->getTitle() ?></h2>
+<form method="post" action="<?= $block->toSave() ?>" style="margin-top: 100px;">
+    <fieldset style="margin: 0 auto; width: 50%">
+        <div>
+            <label for="giftcard_id"><?= __("ID") ?></label>
+            <input type="text" readonly name="giftcard_id" value="<?= $gift->getId(); ?>" style="background-color: gray;">
+        </div>
+        <div>
+            <label for="code"><?= __("CODE") ?></label>
+            <input type="text" name="code" value="<?= $gift->getCode(); ?>" />
+        </div>
+        <div>
+            <label for="balance"><?= __("BALANCE") ?></label>
+            <input type="text" name="balance" value="<?= $gift->getBalance(); ?>" />
+        </div>
+        <input style="margin-left:50%; transform:translateX(-50%)" type="submit" name="btn" value="Save" />
+    </fieldset>
+</form>
