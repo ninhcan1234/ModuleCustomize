@@ -1,0 +1,12 @@
+<?php
+/** @var \Mageplaza\GiftCard\Block\GiftCard\Manager $block */
+$balance = $block->getBalanceCurrentUser();
+
+?>
+
+<div class="gift-top">
+    <h3>Balance</h3>
+    <div class="balance-value">
+        <?= $block->formatPrice($balance) ?>
+    </div>
+</div>

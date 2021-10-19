@@ -3,6 +3,22 @@
     <preference for="Mageplaza\GiftCard\Api\Data\GiftCardInterface" type="Mageplaza\GiftCard\Model\GiftCard" />
     <preference for="Mageplaza\GiftCard\Api\GiftCardRepositoryInterface" type="Mageplaza\GiftCard\Model\GiftCardRepository" />
     <preference for="Mageplaza\GiftCard\Api\Data\GiftCardSearchResultsInterface" type="Mageplaza\GiftCard\Model\GiftCardSearchResults" />
+    <preference for="Mageplaza\GiftCard\Api\Data\GiftCardHistoryInterface" type="Mageplaza\GiftCard\Model\GiftCardHistory" />
+    <preference for="Mageplaza\GiftCard\Api\GiftCardHistoryRepositoryInterface" type="Mageplaza\GiftCard\Model\GiftCardHistoryRepository" />
+    <preference for="Mageplaza\GiftCard\Api\Data\GiftCardHistorySearchResultsInterface" type="Mageplaza\GiftCard\Model\GiftCardHistorySearchResults" />
+
+    <!-- <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="customer_repository_plugin" type="Mageplaza\GiftCard\Plugin\CustomerRepositoryInterface" />
+    </type> -->
+    <!-- <type name="Magento\Checkout\Controller\Cart\CouponPost">
+        <plugin name="coupon.validation" type="Mageplaza\GiftCard\Plugin\PostCouponCodeValidation" sortOrder="1" disabled="false" />
+    </type> -->
+    <!-- <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="coupon.set.validation" type="Mageplaza\GiftCard\Plugin\SetCouponCode" sortOrder="2" disabled="false" />
+    </type> -->
+    <type name="Magento\Checkout\Block\Cart\Coupon">
+        <plugin name="set.display.giftcard" type="Mageplaza\GiftCard\Plugin\GiftCardValue" disabled="false" />
+    </type>
 
     <virtualType name="GiftCardGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
         <arguments>
@@ -29,9 +45,10 @@
         <arguments>
             <argument name="mainTable" xsi:type="string">giftcard_code</argument>
             <argument name="resourceModel" xsi:type="string">Mageplaza\GiftCard\Model\ResourceModel\GiftCard</argument>
+            <argument name="eventPrefix" xsi:type="string">giftcard_code_event</argument>
         </arguments>
     </type>
-     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
         <arguments>
             <argument name="entities" xsi:type="array">
                 <item name="Mageplaza\GiftCard\Api\Data\GiftCardInterface" xsi:type="string">Mageplaza\GiftCard\Api\GiftCardRepositoryInterface</item>

@@ -76,7 +76,7 @@
                         <message translate="true">Are you sure you want to delete selected items?</message>
                         <title translate="true">Delete items</title>
                     </confirm>
-                    <url path="cms/block/massDelete"/>
+                    <url path="giftcard/code/massDelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
                 </settings>
@@ -130,12 +130,10 @@
         </column>
         <column name="code">
             <settings>
-                <filter>text</filter>
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
-                    <editorType>text</editorType>
                 </editor>
                 <label translate="true">Code</label>
             </settings>
@@ -171,7 +169,6 @@
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
-                    <editorType>text</editorType>
                 </editor>
                 <label translate="true">Created From</label>
             </settings>

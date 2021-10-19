@@ -17,9 +17,10 @@ class Save extends Action implements HttpPostActionInterface
 {
 
     /**
-     * @var GiftCardDataProcessor
+     * @var PostDataProcessor
      */
     protected $dataProcessor;
+
     protected $storeManager;
     /**
      * @var DataPersistorInterface
@@ -28,20 +29,31 @@ class Save extends Action implements HttpPostActionInterface
 
     protected $giftCardFactory;
 
+    protected $sessionFactory;
+
+    protected $authSessionFactory;
+
     /**
      * @var \Mageplaza\GiftCard\Api\GiftCardRepositoryInterface
+     * @param PostDataProcessor $dataProcessor
      */
+
     protected $giftCardRepository;
 
     public function __construct(
         Action\Context $context,
-        // GiftCardDataProcessor $dataProcessor,
+        PostDataProcessor $dataProcessor,
         DataPersistorInterface $dataPersistor,
         \Mageplaza\GiftCard\Model\GiftCardFactory $giftCardFactory,
         \Mageplaza\GiftCard\Api\GiftCardRepositoryInterface $giftCardRepository,
-        StoreManagerInterface $storeManager
+        \Magento\Customer\Model\SessionFactory $sessionFactory,
+        StoreManagerInterface $storeManager,
+        \Magento\Backend\Model\Auth\SessionFactory $authSessionFactory
     ) {
         parent::__construct($context);
+        $this->dataProcessor = $dataProcessor;
+        $this->authSessionFactory = $authSessionFactory;
+        $this->sessionFactory = $sessionFactory;
         $this->dataPersistor = $dataPersistor;
         $this->giftCardFactory = $giftCardFactory;
         $this->storeManager = $storeManager;
@@ -57,18 +69,22 @@ class Save extends Action implements HttpPostActionInterface
     public function execute()
     {
         $data = $this->getRequest()->getParams();
-        var_dump($data);
-        die;
-        $date = date('d-m-Y H:i:s');
-        $id = $this->getRequest()->getParam('id');
-        
+        // echo "<pre>";
+        // var_dump($this->getCurrentUserName());
+        // die;
+        $id = $this->getRequest()->getParam('giftcard_id');
+
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
+            // $this->dataProcessor->validateData($data);
+
             if (empty($id)) {
                 $data['giftcard_id'] = null;
-                $data['create_at'] = $date;
-            } 
+                $data['code'] = $this->generateCode($data['code_length']);
+                $data['create_at'] = date('d-m-Y H:i:s');
+                $data['create_from'] = $this->getCurrentUserName();
+            }
 
             $model = $this->giftCardFactory->create();
 
@@ -80,22 +96,42 @@ class Save extends Action implements HttpPostActionInterface
                     return $resultRedirect->setPath('*/*/');
                 }
             }
+
             $model->setData($data);
 
-            try { 
+            try {
                 $this->giftCardRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the giftCard.'));
                 return $this->processResultRedirect($model, $resultRedirect, $data);
             } catch (LocalizedException $e) {
                 $this->messageManager->addExceptionMessage($e->getPrevious() ?: $e);
             } catch (\Throwable $e) {
-                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the giftCard.'));
+                $this->messageManager->addExceptionMessage($e, __('Some thing went wrong!'));
             }
 
             $this->dataPersistor->set('giftcard', $data);
             return $resultRedirect->setPath('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
         }
         return $resultRedirect->setPath('*/*/');
+    }
+
+    public function generateCode($length)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $stringCode = '';
+        for ($i = 0; $i < $length; $i++) {
+            $stringCode .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $stringCode;
+    }
+
+    public function getCurrentUserName()
+    {
+        $authSession = $this->authSessionFactory->create();
+        $customerSession = $this->sessionFactory->create();
+        $currentUserName = $authSession ? $authSession->getUser()->getUserName() : $customerSession->getCustomer()->getName();
+        return $currentUserName;
     }
 
     /**

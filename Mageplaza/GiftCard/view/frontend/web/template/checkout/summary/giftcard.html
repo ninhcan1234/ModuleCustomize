@@ -1,0 +1,8 @@
+<!-- ko if: isDisplayed() -->
+<tr class="totals giftcard excl">
+    <th class="mark" colspan="1" scope="row" data-bind="text: title"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getGiftCardValue(), attr: {'data-th': gift_card}"></span>
+    </td>
+</tr>
+<!-- /ko -->

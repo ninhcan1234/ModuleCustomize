@@ -1,0 +1,46 @@
+<?php
+/** @var \Mageplaza\GiftCard\Block\GiftCard\Manager $block */
+$collection = $block->getCollectionHistory();
+// echo "<pre>";
+// var_dump($collection->getData());
+// die;
+?>
+
+<div class="gift-content">
+
+    <div class="gift-title">
+        <h2>History</h2>
+        <hr />
+    </div>
+    <?php if ($collection && count($collection)) : ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Date')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Code')) ?></th>
+                    <th scope="col" class="col shipping"><?= $block->escapeHtml(__('Amount')) ?></th>
+                    <th scope="col" class="col total"><?= $block->escapeHtml(__('Action')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($collection as $gift) : ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('History Date')) ?>" class="col date"><?= /* @noEscape */ $block->formatDate($gift->getActionTime()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('History Code')) ?>" class="col code"><?= $block->escapeHtml($gift->getCode()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('History Amount')) ?>" class="col amount"><?= $block->formatPrice($gift->getAmount()) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('History Action')) ?>" class="col action"><?= /* @noEscape */ $gift->getAction() ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have no gift cards.')) ?></span></div>
+<?php endif ?>
+
+</div>

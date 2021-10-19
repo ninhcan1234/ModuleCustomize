@@ -2,15 +2,11 @@
 
 namespace Mageplaza\GiftCard\Model;
 
-class GiftCard extends \Magento\Framework\Model\AbstractModel implements \Mageplaza\GiftCard\Api\Data\GiftCardInterface
-{
-    const CACHE_TAG = 'mageplaza_giftcard_gift_code';
-    /**#@+
-     * gift's statuses
-     */
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
+use Mageplaza\GiftCard\Api\Data\GiftCardHistoryInterface;
 
+class GiftCardHistory extends \Magento\Framework\Model\AbstractModel implements GiftCardHistoryInterface
+{
+    const CACHE_TAG = 'mageplaza_giftcard_gift_card_history';
 
     /**
      * Model cache tag for clear cache in after save and after delete
@@ -24,7 +20,7 @@ class GiftCard extends \Magento\Framework\Model\AbstractModel implements \Magepl
      *
      * @var string
      */
-    protected $_eventPrefix = 'giftcard_code';
+    protected $_eventPrefix = 'giftcard_history';
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -50,7 +46,7 @@ class GiftCard extends \Magento\Framework\Model\AbstractModel implements \Magepl
      */
     protected function _construct()
     {
-        $this->_init('Mageplaza\GiftCard\Model\ResourceModel\GiftCard');
+        $this->_init('Mageplaza\GiftCard\Model\ResourceModel\GiftCardHistory');
     }
 
     /**
@@ -74,77 +70,77 @@ class GiftCard extends \Magento\Framework\Model\AbstractModel implements \Magepl
     }
 
     /**
-     * Set ID
+     * Set HISTORY ID
      *
      * @param int $id
-     * @return GiftCardInterface
+     * @return GiftCardHistoryInterface
      */
     public function setId($id)
     {
         return $this->setData(self::ID, $id);
     }
 
-    /**
-     * Get gift code
-     *
-     * @return string|null
-     */
-    public function getCode()
-    {
-        return $this->getData(self::CODE);
-    }
-
-    /**
-     * Set gift code
-     *
-     * @param string $giftCode
-     * @return GiftCardInterface
-     */
-    public function setCode($giftCode)
-    {
-        return $this->setData(self::CODE, $giftCode);
-    }
-
-    /**
-     * Get gift balance
+     /**
+     * Get HISTORY ID
      *
      * @return int|null
      */
-    public function getBalance()
+    public function getGiftCardId()
     {
-        return $this->getData(self::BALANCE);
+        return $this->getData(self::GIFTCARD_ID);
     }
 
     /**
-     * Set gift balance
+     * Set GIFTCARD ID
      *
-     * @param int $balance
-     * @return GiftCardInterface
+     * @param int $giftCardId
+     * @return GiftCardHistoryInterface
      */
-    public function setBalance($balance)
+    public function setGiftCardId($giftCardId)
     {
-        return $this->setData(self::BALANCE, $balance);
+        return $this->setData(self::GIFTCARD_ID, $giftCardId);
     }
 
-    /**
-     * Get gift amount
+       /**
+     * Get CUSTOMER ID
      *
      * @return int|null
      */
-    public function getAmountUsed()
+    public function getCustomerId()
     {
-        return $this->getData(self::AMOUNT_USED);
+        return $this->getData(self::CUSTOMER_ID);
     }
 
     /**
-     * Set gift amount
+     * Set CUSTOMER ID
      *
-     * @param int $amountUsed
-     * @return GiftCardInterface
+     * @param int $customerId
+     * @return GiftCardHistoryInterface
      */
-    public function setAmountUsed($amountUsed)
+    public function setCustomerId($customerId)
     {
-        return $this->setData(self::AMOUNT_USED, $amountUsed);
+        return $this->setData(self::CUSTOMER_ID, $customerId);
+    }
+
+    /**
+     * Get history amount
+     *
+     * @return int|null
+     */
+    public function getAmount()
+    {
+        return $this->getData(self::AMOUNT);
+    }
+
+    /**
+     * Set history amount
+     *
+     * @param int $amount
+     * @return GiftCardHistoryInterface
+     */
+    public function setAmount($amount)
+    {
+        return $this->setData(self::AMOUNT, $amount);
     }
 
     /**
@@ -152,38 +148,38 @@ class GiftCard extends \Magento\Framework\Model\AbstractModel implements \Magepl
      *
      * @return int|null
      */
-    public function getCreateFrom(){
-        return $this->getData(self::CREATE_FROM);
+    public function getAction(){
+        return $this->getData(self::ACTION);
     }
 
     /**
-     * Set Create from
+     * Set ACTION
      *
-     * @param int $from
-     * @return GiftCardInterface
+     * @param int $action
+     * @return GiftCardHistoryInterface
      */
-    public function setCreateFrom($from){
-        return $this->setData(self::CREATE_FROM, $from);
+    public function setAction($action){
+        return $this->setData(self::ACTION, $action);
     }
 
     /**
-     * Get createTime 
+     * Get actionTime 
      *
      * @return string|null
      */
-    public function getCreateAt()
+    public function getActionTime()
     {
-        return $this->getData(self::CREATE_AT);
+        return $this->getData(self::ACTION_TIME);
     }
 
     /**
-     * Set createTime 
+     * Set ACTION TIME 
      *
-     * @param string $createTime
-     * @return GiftCardInterface
+     * @param string $actionTime
+     * @return GiftCardHistoryInterface
      */
-    public function setCreateAt($createTime)
+    public function setActionTime($actionTime)
     {
-        return $this->setData(self::CREATE_AT, $createTime);
+        return $this->setData(self::ACTION_TIME, $actionTime);
     }
 }

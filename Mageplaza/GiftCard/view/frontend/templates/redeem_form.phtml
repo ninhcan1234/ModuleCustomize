@@ -1,0 +1,32 @@
+<?php
+
+/** @var \Mageplaza\GiftCard\Block\GiftCard\Manager $block */
+
+?>
+
+<div class="gift-top">
+    <form method="post" action="<?= $block->getUrl('plaza/giftcard/redeem') ?>">
+        <fieldset style="margin: 0 auto; width: 50%">
+            <div>
+                <label for="code"><?= __("Redeem") ?></label>
+                <input type="text" placeholder="Enter gift card code" name="code" id="code" value="" required />
+                <p id="demo"></p>
+                <input class="redeem action primary" type="submit" name="btn" value="Redeem" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<!-- <script>
+    var val = document.getElementById("code").value;
+    var btn = document.querySelector(".redeem");
+    btn.addEventListener('click', () => {
+        let text;
+        if (val == '') {
+            text = "Input not valid";
+        } else {
+            text = "Input OK";
+        }
+        document.getElementById("demo").innerHTML = text;
+    })
+</script> -->

@@ -12,6 +12,13 @@ class Collection extends AbstractCollection
      */
     const YOUR_TABLE = 'giftcard_code';
 
+    /**
+     * @var string
+     */
+    protected $_idFieldName = 'giftcard_id';
+    protected $_eventPrefix = 'mageplaza_giftcard_gift_card_collection';
+    protected $_eventObject = 'gift_card_collection';
+
     protected $eavAttribute;
 
     public function __construct(

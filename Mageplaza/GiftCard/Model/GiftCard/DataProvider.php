@@ -83,7 +83,6 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         foreach ($items as $giftCard) {
             $this->loadedData[$giftCard->getId()] = $giftCard->getData();
         }
-        // $this->loadedData['code_length' => $this->dataConfig->getSystemConfig('giftcard/code_config/code_length')];
 
         $data = $this->dataPersistor->get('giftcard_giftcard');
         if (!empty($data)) {
@@ -100,15 +99,19 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     {
         $meta = parent::getMeta();
         $id = $this->request->getParam('id');
+        $codeLength = $this->dataConfig->getSystemConfig('giftcard/code_config/code_length');
+        $meta['gift']['children']['code_length']['arguments']['data']['config']['default'] = $codeLength;
         if($id === null){
-            $meta['gift']['children']['code_length']['arguments']['data']['config']['disabled'] = false;
-            $meta['gift']['children']['create_from']['arguments']['data']['config']['disabled'] = false;
+            $meta['gift']['children']['code_length']['arguments']['data']['config']['visible'] = true;
+            $meta['gift']['children']['code']['arguments']['data']['config']['visible'] = false;
         }
         else{
-            $meta['gift']['children']['code_length']['arguments']['data']['config']['disabled'] = true;
-            $meta['gift']['children']['create_from']['arguments']['data']['config']['disabled'] = true;
+            $meta['gift']['children']['code_length']['arguments']['data']['config']['visible'] = false;
+            $meta['gift']['children']['code']['arguments']['data']['config']['disabled'] = true;
         }
 
         return $meta;
     }
+
+    
 }
