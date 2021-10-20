@@ -2,29 +2,24 @@
 
 namespace Mageplaza\GiftCard\Plugin;
 
-
-
 class GiftCardValue
 {
     protected $giftCardResource;
     protected $giftCardFactory;
-    protected $checkoutSession;
-    protected $coupon;
-    protected $saleRule;
+    protected $sessionFactory;
+    protected $quoteFactory;
 
     public function __construct(
-        \Magento\Checkout\Model\Session $checkoutSession,
         \Mageplaza\GiftCard\Model\ResourceModel\GiftCard $giftCardResource,
         \Mageplaza\GiftCard\Model\GiftCardFactory $giftCardFactory,
-        \Magento\SalesRule\Model\Coupon $coupon,
-        \Magento\SalesRule\Model\Rule $saleRule
+        \Magento\Checkout\Model\SessionFactory $sessionFactory,
+        \Magento\Quote\Model\QuoteFactory $quoteFactory
 
     ) {
-        $this->coupon = $coupon;
-        $this->saleRule = $saleRule;
         $this->giftCardFactory = $giftCardFactory;
         $this->giftCardResource = $giftCardResource;
-        $this->checkoutSession = $checkoutSession;
+        $this->sessionFactory = $sessionFactory;
+        $this->quoteFactory = $quoteFactory;
     }
 
     /**
@@ -34,10 +29,22 @@ class GiftCardValue
      * @codeCoverageIgnore
      */
     public function afterGetCouponCode(\Magento\Checkout\Block\Cart\Coupon $subject)
-    {   
-        $rulesCollection = $this->saleRule->getCollection();
+    {
+        if ($this->getGiftCard()->getId()) {
+            return $this->getGiftCard()->getCode();
+        } else {
+            return $subject->getQuote()->getCouponCode();
+        }
+    }
+
+    protected function getGiftCard()
+    {
+        $checkoutSession = $this->sessionFactory->create();
+        $quoteId = $checkoutSession->getQuote()->getId();
+        $quote = $this->quoteFactory->create()->loadActive($quoteId);
+        $code = $quote->getCouponCode();
         $giftCard = $this->giftCardFactory->create();
-        // $this->giftCardResource->load($giftCard, $code, 'code');
-        // return 'ABC';
+        $this->giftCardResource->load($giftCard, $code, 'code');
+        return $giftCard;
     }
 }

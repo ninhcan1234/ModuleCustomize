@@ -1,0 +1,16 @@
+<div id="gift-container" data-bind="scope:'giftcard'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#gift-container": {
+            "Magento_Ui/js/core/app": {
+               "components": {
+                    "giftcard": {
+                        "component": "Mageplaza_GiftCard/js/gift-component"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+</div>

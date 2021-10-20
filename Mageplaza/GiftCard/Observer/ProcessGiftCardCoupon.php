@@ -12,6 +12,7 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
     protected $redirect;
     protected $url;
     protected $checkoutSession;
+    protected $_actionFlag;
 
 
     /**
@@ -34,7 +35,8 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Framework\UrlInterface $url,
-        \Magento\Framework\App\Response\Http $redirect
+        \Magento\Framework\App\Response\Http $redirect,
+        \Magento\Framework\App\ActionFlag $actionFlag
     ) {
         $this->cart = $cart;
         $this->quoteRepository = $quoteRepository;
@@ -46,6 +48,7 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
         $this->url = $url;
         $this->redirect = $redirect;
         $this->checkoutSession = $checkoutSession;
+        $this->_actionFlag = $actionFlag;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -53,17 +56,15 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
         /** @var \Magento\Framework\App\Action\Action $controller */
 
         $controller = $observer->getControllerAction();
-        
-        $couponCode = $controller->getRequest()->getParam('coupon_code');
-        $remove = $controller->getRequest()->getParam('remove');
+        $couponCode = $controller->getRequest()->getParam('remove') == 1
+            ? ''
+            : trim($controller->getRequest()->getParam('coupon_code'));
         $codeLength = strlen($couponCode);
-        $cartQuote = $this->cart->getQuote();
-
         $giftCard = $this->giftCardFactory->create();
         $this->giftCardResource->load($giftCard, $couponCode, 'code');
 
         if ($giftCard->getId()) {
-
+            $this->_actionFlag->set('', \Magento\Framework\App\Action\Action::FLAG_NO_DISPATCH, true);
             try {
                 $isCodeLengthValid = $codeLength && $codeLength <= \Magento\Checkout\Helper\Cart::COUPON_CODE_MAX_LENGTH;
 
@@ -71,17 +72,14 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
                     $escaper = $this->_objectManager->get(\Magento\Framework\Escaper::class);
 
                     if ($isCodeLengthValid && $giftCard->getId()) {
-                        $cartQuote->setCouponCode($isCodeLengthValid ? $couponCode : '')->collectTotals();
-                        $this->quoteRepository->save($cartQuote);
                         $this->checkoutSession->getQuote()->setCouponCode($couponCode)->save();
-                        $code = $this->checkoutSession->getQuote()->getCouponCode();
+
                         $this->messageManager->addSuccessMessage(
                             __(
                                 'You applied gift code "%1" successfully !',
                                 $escaper->escapeHtml($couponCode)
                             )
                         );
-                       
                     } else {
                         $this->messageManager->addErrorMessage(
                             __(
@@ -91,7 +89,7 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
                         );
                     }
                 } else {
-                    $this->messageManager->addSuccessMessage(__('You canceled the coupon code.'));
+                    $this->messageManager->addSuccessMessage(__('You canceled the gift code.'));
                 }
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
@@ -100,6 +98,8 @@ class ProcessGiftCardCoupon implements \Magento\Framework\Event\ObserverInterfac
                 $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
             }
 
+            $observer->getControllerAction()->getResponse()->setRedirect($this->url->getUrl('*/*/'));
+            return $this;
         }
     }
 }
