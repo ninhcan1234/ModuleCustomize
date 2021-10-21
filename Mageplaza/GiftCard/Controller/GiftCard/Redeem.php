@@ -72,6 +72,8 @@ class Redeem extends \Magento\Framework\App\Action\Action
                     $giftCardHistory->setAmount(0);
                     $this->saveBalanceCustomer($balanceCustomer, $customer->getId());
                     $this->giftCardHistoryResource->save($giftCardHistory);
+                    $giftCard->setBalance(0);
+                    $this->giftCardResource->save($giftCard);
                     $this->messageManager->addSuccessMessage(__('You redeemed the gift card ' . $giftCard->getCode() . ' successfully!.'));
                 } else {
                     $this->messageManager->addErrorMessage("This gift card code has expired, please use another code!");

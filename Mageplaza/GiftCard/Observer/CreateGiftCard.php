@@ -41,7 +41,7 @@ class CreateGiftCard implements \Magento\Framework\Event\ObserverInterface
         foreach ($order->getAllItems() as $item) {
             $productTypeId = $item->getProduct()->getTypeId();
             $hasGiftCardAmount = $item->getProduct()->getGiftcardAmount();
-            if ($productTypeId == \Magento\Catalog\Model\Product\Type::TYPE_VIRTUAL && $hasGiftCardAmount) {
+            if ($productTypeId == \Magento\Catalog\Model\Product\Type::TYPE_VIRTUAL && $hasGiftCardAmount && $hasGiftCardAmount > 0) {
                 $qtyOrder = $item->getQtyOrdered();
                 $amountBalance = $item->getProduct()->getGiftcardAmount();
                 for ($i = 0; $i < $qtyOrder; $i++) {

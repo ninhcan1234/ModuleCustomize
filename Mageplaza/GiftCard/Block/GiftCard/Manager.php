@@ -91,6 +91,8 @@ class Manager extends \Magento\Framework\View\Element\Template
                 ['ce' => $customerEntity],
                 'gch.customer_id = ce.entity_id'
             );
+        $collection->setOrder('amount','DESC');
+        $collection->setOrder('history_id','DESC');
         $collection->setCurPage($page);
         $collection->setPageSize($pageSize);
         return $collection;

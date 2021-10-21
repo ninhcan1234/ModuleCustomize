@@ -39,10 +39,7 @@ class GiftCardValue
 
     protected function getGiftCard()
     {
-        $checkoutSession = $this->sessionFactory->create();
-        $quoteId = $checkoutSession->getQuote()->getId();
-        $quote = $this->quoteFactory->create()->loadActive($quoteId);
-        $code = $quote->getCouponCode();
+        $code = $this->sessionFactory->create()->getGiftCode();
         $giftCard = $this->giftCardFactory->create();
         $this->giftCardResource->load($giftCard, $code, 'code');
         return $giftCard;
